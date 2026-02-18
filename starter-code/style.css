@@ -22,7 +22,7 @@
 }
 
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -36,6 +36,7 @@ img {
 
 input, button {
   border: none;
+  outline: none;
   background: none;
   font-family: inherit;
   font-size: inherit;
@@ -56,8 +57,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin: 0 1rem;
-  /* WHY falls apart if 2rem??? (its actually 36px) */
+  padding: 2rem;
 }
 
 .logo {
@@ -66,8 +66,8 @@ body {
 
 h1 {
 margin-top: var(--space-800);  
-font-size: 48px;
-font-weight: 300;
+font-size: 32px;
+font-weight:300;
 line-height: 120%;
 letter-spacing: 0;
 text-transform: uppercase;
@@ -83,14 +83,13 @@ color: var(--green);
 
 .hero-text {
 margin-top: var(--space-300);  
-font-size: 18px;
+font-size: 14px;
 font-weight: 300;
 line-height: 150%;
 letter-spacing: 0;
 color: var(--blue300);
 }
 
-/* how exactly does this work? KEVIN'S FLEXBOX VIDEO PLS */
 .brand-strip {
   margin-top: var(--space-500);
   display: flex;
@@ -99,10 +98,12 @@ color: var(--blue300);
   /* width: 100%; */
   gap: 1rem;
 
+  /* default for images is min-width: auto */
+  /* this means min size is the real size of images (intrinsic dimensions) */
+  /* we want images to be able to shrink below that */
+  /* normally css reset width: auto would sort this out ??? MORE COMPLEX RABBIT HOLE ???*/
+  /* but flexbox has different rules. cant use min-width: 0 for general reset tho, would mess things up */
     img {
-      /* height: 1.5rem; */
-      width: auto;
-      flex-shrink: 1;
       min-width: 0;
     }
 }
@@ -111,22 +112,60 @@ form {
 margin-top: var(--space-500);
 display: flex;
 flex-direction: column;
+width: 100%;
 
   input {
+    color: var(--white);
     background-color: var(--blue900);
     border-radius: 44px;
+    height: 44px;
+    padding-left: var(--space-400);
+
+    &::placeholder {
+      color: var(--blue300);
+      font-weight: 700;
+      font-size: 14px;
+    }
+  }
+
+  
+  button {
+    margin-top: var(--space-100);
+    font-size: 14px;
+    font-weight: 700;
+    background-color: var(--green);  
+    color: var(--blue950);
+    height: 44px;
+    border-radius: 44px;
+    cursor: pointer;
+
+    &:hover {
+      background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+    }
+  }
+
+  span {
+    display: none;
   }
 }
 
-.button-text {
-font-size: 14px;
-font-weight: 700;
-line-height: 200%;
-letter-spacing: 0;
+/* js error classes */
+.input-error {
+  border: solid 2px var(--red);
 }
 
 .error-text {
-  font-size: 14px;
+  display: inline-block;
+  margin-top: var(--space-100);
+  color: var(--red);
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0;
+}
+
+@media (min-width: 768px) {
+  body {
+    /* display: none; */
+  }
+  
 }
