@@ -22,6 +22,13 @@
 --space-1300: 6.5rem;
 }
 
+/* TODO */
+/* build layout */
+/* sort out background stuff */
+/* fix folor for hero text and icon strip, need currentColor for svg */
+/* understand exactly how color strip works */
+/* + systemic understanding, you want a framework that you can apply to everything else! */
+
 
 *, *::before, *::after {
   margin: 0;
@@ -45,10 +52,10 @@ input, button {
 
 body {
   background:
-    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.80)),
     url(assets/mobile/image-host.jpg);
-  block-size: cover;
-  /* min-height: 100vh; */
+  /* background-size: cover; */
+  background-size: auto 100vh;
   font-family: "Chivo", sans-serif;
   color: var(--white);
 }
@@ -62,15 +69,25 @@ body {
   grid-template-rows: auto;
   grid-template-areas:
   'logo'
-  'headline'
-  'hero-text'
-  'brand-strip'
-  'form'
+  'hero'
 }
 
 .logo {
   margin-top: 9.125rem;
   grid-area: logo;
+}
+
+.hero {
+  grid-area: hero;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+  'headline'
+  'hero-text'
+  'brand-strip'
+  'form'
 }
 
 h1 {
@@ -106,6 +123,7 @@ color: var(--blue300);
   align-items: center;
   /* width: 100%; */
   gap: 1rem;
+  /* color: var(--blue900) */
 
   /* default for images is min-width: auto */
   /* this means min size is the real size of images (intrinsic dimensions) */
@@ -154,17 +172,12 @@ width: 100%;
       background-color: var(--btn-bg-hover);
     }
   }
-
-  span {
-    display: none;
-  }
-}
-
-.hero-img {
-  display: none;
 }
 
 /* js error classes */
+.error-text-hidden {
+  display: none;
+}
 .input-error {
   border: solid 2px var(--red);
 }
@@ -178,19 +191,69 @@ width: 100%;
   letter-spacing: 0;
 }
 
+/* tablet */
 @media (min-width: 768px) {
   body {
-    background: var(--blue950)  }
-
-  .grid-container {
-  justify-items: center;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-
-    .hero-img {
-      grid-area: hero-img;
-    }
+    height: 100vh;
+    background:
+    url(assets/desktop/bg-pattern-dots.svg),
+    url(assets/tablet/image-host.jpg),
+    var(--blue950);
+    background-position: right -22% bottom 22%, right -28% top, center;
+    background-repeat: no-repeat;
+    
 
   }
+
+  .grid-container {
+  justify-items: left;
+  text-align: left;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  padding: 2.75rem;  
+  }
+
+  .logo {
+    margin-top: 7rem;
+  }
+
+  .hero {
+    /* display: none; */
+    justify-items: left;
+    grid-template-areas:
+    'headline'
+    'hero-text'
+    'form'
+    'brand-strip';
+    background-color: red;
+    padding: 6rem 3rem 0 3rem;
+
+    h1 {
+      margin-right: 16rem;
+    }
+
+    .hero-text {
+      margin-right: 15rem;
+    }
   
-}
+    form {
+      flex-direction: row;
+      background-color: var(--blue900);
+      /* height: 44px; */
+      padding: 0.2 5rem;
+      border-radius: 44px;
+
+      input {
+        background-color: transparent;
+      }
+
+
+      button {
+        margin-top: 0;
+        padding: 1rem 2rem;
+      }
+    }
+
+    }
+  }
+  
